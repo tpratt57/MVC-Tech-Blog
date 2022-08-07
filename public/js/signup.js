@@ -1,13 +1,13 @@
-async function signupFormHandler(event){
+async function signupFormHandler(event) {
     event.preventDefault();
 
     const username = document.querySelector('#username-signup').value.trim();
     const email = document.querySelector('#email-signup').value.trim();
-    const password =  document.querySelector('#password-signup').value.trim();
-    const twitter =  document.querySelector('#twitter-signup').value.trim();
+    const password = document.querySelector('#password-signup').value.trim();
+    const twitter = document.querySelector('#twitter-signup').value.trim();
     const github = document.querySelector('#github-signup').value.trim();
 
-    if(username && email && password){
+    if (username && email && password) {
         const response = await fetch('/api/users', {
             method: 'post',
             body: JSON.stringify({
@@ -17,14 +17,14 @@ async function signupFormHandler(event){
                 github,
                 password
             }),
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         });
 
-        if(response.ok){
+        if (response.ok) {
             console.log("success");
             document.location.replace('/dashbaord')
         }
-        else{
+        else {
             alert(response.statusText);
         }
     }
