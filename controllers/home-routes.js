@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 
 router.get('/', (req, res) => {
-    console.log(req.session);
+    console.log(req.body);
 
     Post.findAll({
         attributes: [
@@ -18,12 +18,12 @@ router.get('/', (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'twitter', 'github']
+                    attributes: ['username']
                 }
             },
             {
                 model: User,
-                attributes: ['username', 'twitter', 'github']
+                attributes: ['username']
             }
         ]
     })
@@ -70,12 +70,12 @@ router.get('/post/:id', (req, res) => {
             attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
             include: {
                 model: User,
-                attributes: ['username', 'twitter', 'github']
+                attributes: ['username']
                 }   
             },
             {
                 model: User,
-                attributes: ['username', 'twitter', 'github']
+                attributes: ['username']
             }
         ]
     })

@@ -4,7 +4,6 @@ const sequelzie = require('./config/connection');
 const path = require('path');
 const helpers = require('./utils/helpers');
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({helpers});
 const session = require('express-session');
 
 const app = express();
@@ -20,19 +19,20 @@ const sess = {
     saveUninitialized: true,
     store: new SequelizeStore({
         db: sequelzie,
-        checkExpirationInterval: 20 * 60 * 1000,
-        expiration: 24 * 60 * 60 * 1000
+        /* checkExpirationInterval: 20 * 60 * 1000,
+        expiration: 24 * 60 * 60 * 1000 */
     })
 };
 
 app.use(session(sess));
-
+const hbs = exphbs.create({helpers});
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, "views"));
 
 app.use(routes);
 
